@@ -29,8 +29,17 @@ No third-party dependencies — only the Python standard library (`tkinter`, `ha
 
 ## Notes
 
-- Appending bytes changes the file length; the modified copy is meant to be re-muxed
-  or re-encoded by your own pipeline if you need a clean container.
+- The original file on disk is never modified. "Modify MD5" writes a `*.tmp` copy,
+  appends a few bytes (the current Unix timestamp as ASCII), and you then save that
+  copy to a new path of your choice.
+- Appending bytes changes the file length and leaves a few trailing bytes outside the
+  container. Most tolerant players ignore trailing junk, but some players, upload
+  platforms, or strict validators may reject or misplay the file. Compatibility is
+  **not guaranteed**; if you need a clean container, re-mux or re-encode the output
+  with your own pipeline.
+- This tool only changes the on-disk MD5 fingerprint. It is **not** encryption,
+  signing, video repair, or a way to bypass content moderation; platforms that
+  re-encode or inspect actual streams will still see identical content.
 
 ## License & Attribution / 许可与来源
 
