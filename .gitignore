@@ -1,0 +1,5 @@
+__pycache__/
+*.tmp
+*.mp4.tmp
+build/
+dist/
